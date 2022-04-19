@@ -1,12 +1,26 @@
-import "./App.css";
-import React from "react";
+import React, { useState } from "react";
+import Container from "react-bootstrap/Container";
+import OrderEntry from "./pages/entry/OrderEntry";
 import OrderSummary from "./pages/summary/OrderSummary";
+import OrderConfirmation from "./pages/confirmation/OrderConfirmation";
+import { OrderDetailsProvider } from "./contexts/OrderDetails";
 
 function App() {
+  const [orderPhase, setOrderPhase] = useState("inProgress");
+
+  const ItemPhaseComponent =
+    orderPhase === "inProgress"
+      ? OrderEntry
+      : orderPhase === "review"
+      ? OrderSummary
+      : OrderConfirmation;
+
   return (
-    <div className="App">
-      <OrderSummary />
-    </div>
+    <Container>
+      <OrderDetailsProvider>
+        <ItemPhaseComponent setOrderPhase={setOrderPhase} />
+      </OrderDetailsProvider>
+    </Container>
   );
 }
 

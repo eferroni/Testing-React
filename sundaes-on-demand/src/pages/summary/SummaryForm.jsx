@@ -8,7 +8,7 @@ const popover = (
   </Popover>
 );
 
-const SummaryForm = () => {
+const SummaryForm = ({ setOrderPhase }) => {
   const [accepted, setAccepted] = useState(false);
 
   return (
@@ -27,7 +27,9 @@ const SummaryForm = () => {
         </label>
       </div>
       <div>
-        <button disabled={!accepted}>Confirm order</button>
+        <button disabled={!accepted} onClick={() => setOrderPhase("complete")}>
+          Confirm order
+        </button>
       </div>
     </div>
   );
